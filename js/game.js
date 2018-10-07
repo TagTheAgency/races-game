@@ -68,7 +68,7 @@ var game = {
         me.pool.register("clumsy", game.BirdEntity);
         me.pool.register("cabinet", game.CabinetEntity, true);
         me.pool.register("desk", game.DeskEntity, true);
-        me.pool.register("light", game.LightEntity, true);
+        me.pool.register("horse", game.RivalEntity, true);
         //me.pool.register("hit", game.HitEntity, true);
         me.pool.register("ground", game.Ground, true);
         me.pool.register("restart_button", game.RestartButton, true);

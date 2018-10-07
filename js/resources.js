@@ -1,6 +1,6 @@
 game.resources = [
     {name: "bg", type:"image", src: "data/img/Game-bg.png"},
-    {name: "player", type: "image", src: "data/img/horse.jpg" },
+    {name: "rival", type: "image", src: "data/img/horse_small.jpg" },
     {name: "clumsy", type:"image", src: "data/img/horse_small.jpg"},
     {name: "pipe", type:"image", src: "data/img/pipe.png"},
     {name: "ground", type:"image", src: "data/img/Game-fence.png"},
