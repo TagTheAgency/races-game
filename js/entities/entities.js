@@ -2,8 +2,8 @@ game.BirdEntity = me.Entity.extend({
     init: function(x, y) {
         var settings = {};
         settings.image = 'clumsy';
-        settings.width = 100;
-        settings.height = 71.75;
+        settings.width = 170;
+        settings.height = 117;
 
 
         this._super(me.Entity, 'init', [x, y, settings]);
@@ -14,7 +14,6 @@ game.BirdEntity = me.Entity.extend({
         this.renderable.addAnimation("flying", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
         this.renderable.addAnimation("idle", [0]);
         this.renderable.setCurrentAnimation("flying");
-        this.renderable.scale(2);
         //this.renderable.anchorPoint = new me.Vector2d(0.1, 0.5);
         this.body.removeShapeAt(0);
         //this.body.addShape(new me.Ellipse(5, 5, 71, 51));
@@ -38,12 +37,13 @@ game.BirdEntity = me.Entity.extend({
         this.collided = false;
 
         this.gravityForce = 0.2;
+
     },
 
     update: function(dt) {
         //this._super(me.Entity, "update", []);
         var that = this;
-        this.pos.x = 60;
+        this.pos.x = 100;
         if (!game.data.start) {
             return this._super(me.Entity, 'update', [dt]);
         }
@@ -70,7 +70,6 @@ game.BirdEntity = me.Entity.extend({
 
         var scale = 900 - this.pos.y;
         scale = scale / 500;
-        //this.renderable.scale(scale);
         //this.renderable.scale(1.1);
         me.collision.check(this);
         game.data.steps += .01;
@@ -219,51 +218,12 @@ game.CabinetEntity = me.Entity.extend({
 
 });
 
-game.LightEntity = me.Entity.extend({
+game.RivalEntityRed = me.Entity.extend({
     init: function(x, y) {
         var settings = {};
-        settings.image = this.image = me.loader.getImage('light');
-        settings.width = 140;
-        settings.height= 804;
-        settings.framewidth = 140;
-        settings.frameheight = 804;
-
-        this._super(me.Entity, 'init', [x, y, settings]);
-        this.alwaysUpdate = true;
-        this.body.gravity = 0;
-
-        var minVel = -5;
-        var maxVel = -15;
-
-        var actualVel = game.data.steps / -10;
-        actualVel += minVel;
-
-        this.body.vel.set(actualVel, 0);
-        this.type = 'cabinet';
-    },
-
-    update: function(dt) {
-        // mechanics
-        if (!game.data.start) {
-            return this._super(me.Entity, 'update', [dt]);
-        }
-        this.pos.add(this.body.vel);
-        if (this.pos.x < -this.image.width) {
-            me.game.world.removeChild(this);
-        }
-        me.Rect.prototype.updateBounds.apply(this);
-        this._super(me.Entity, 'update', [dt]);
-        return true;
-    },
-
-});
-
-game.RivalEntity = me.Entity.extend({
-    init: function(x, y) {
-        var settings = {};
-        settings.image = this.image = me.loader.getImage('rival');
-        settings.width = 100;
-        settings.height= 71;
+        settings.image = this.image = me.loader.getImage('rival2');
+        settings.width = 170;
+        settings.height= 117;
 
         this._super(me.Entity, 'init', [x, y, settings]);
         this.alwaysUpdate = true;
@@ -277,6 +237,83 @@ game.RivalEntity = me.Entity.extend({
 
         this.body.vel.set(actualVel, 0);
         this.type = 'horse';
+        //this.renderable.scale(.3);
+    },
+
+    update: function(dt) {
+        // mechanics
+        if (!game.data.start) {
+            return this._super(me.Entity, 'update', [dt]);
+        }
+        this.pos.add(this.body.vel);
+        if (this.pos.x < -100/*this.image.width*/) {
+            me.game.world.removeChild(this);
+        }
+        me.Rect.prototype.updateBounds.apply(this);
+        this._super(me.Entity, 'update', [dt]);
+        return true;
+    },
+
+});
+
+game.RivalEntityPurple = me.Entity.extend({
+    init: function(x, y) {
+        var settings = {};
+        settings.image = this.image = me.loader.getImage('rival3');
+        settings.width = 170;
+        settings.height= 117;
+
+        this._super(me.Entity, 'init', [x, y, settings]);
+        this.alwaysUpdate = true;
+        this.body.gravity = 0;
+
+        var minVel = -5;
+        var maxVel = -15;
+
+        var actualVel = game.data.steps / -10;
+        actualVel += minVel;
+
+        this.body.vel.set(actualVel, 0);
+        this.type = 'horse';
+        //this.renderable.scale(.3);
+    },
+
+    update: function(dt) {
+        // mechanics
+        if (!game.data.start) {
+            return this._super(me.Entity, 'update', [dt]);
+        }
+        this.pos.add(this.body.vel);
+        if (this.pos.x < -100/*this.image.width*/) {
+            me.game.world.removeChild(this);
+        }
+        me.Rect.prototype.updateBounds.apply(this);
+        this._super(me.Entity, 'update', [dt]);
+        return true;
+    },
+
+});
+
+game.RivalEntityPink = me.Entity.extend({
+    init: function(x, y) {
+        var settings = {};
+        settings.image = this.image = me.loader.getImage('rival1');
+        settings.width = 170;
+        settings.height= 117;
+
+        this._super(me.Entity, 'init', [x, y, settings]);
+        this.alwaysUpdate = true;
+        this.body.gravity = 0;
+
+        var minVel = -5;
+        var maxVel = -15;
+
+        var actualVel = game.data.steps / -10;
+        actualVel += minVel;
+
+        this.body.vel.set(actualVel, 0);
+        this.type = 'horse';
+        //this.renderable.scale(.3);
     },
 
     update: function(dt) {
@@ -313,7 +350,16 @@ game.PipeGenerator = me.Renderable.extend({
 //            );
             console.log(posY);
 
-            var obstacle = new me.pool.pull('horse', this.posX, posY);
+
+            var rand = game.random();//Math.random();
+
+            if (rand < 0.333) {
+              var obstacle = new me.pool.pull('rival_horse_1', this.posX, posY);
+            } else if (rand < 0.667){
+              var obstacle = new me.pool.pull('rival_horse_2', this.posX, posY);
+            } else {
+              var obstacle = new me.pool.pull('rival_horse_3', this.posX, posY);
+            }
 
 //            var obstacle2 = new me.pool.pull('light', this.posX, hole);
 

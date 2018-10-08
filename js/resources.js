@@ -1,7 +1,9 @@
 game.resources = [
     {name: "bg", type:"image", src: "data/img/Game-bg.png"},
-    {name: "rival", type: "image", src: "data/img/horse_small.jpg" },
-    {name: "clumsy", type:"image", src: "data/img/horse_small.jpg"},
+    {name: "rival1", type: "image", src: "data/img/horse_510x468_pink.png" },
+    {name: "rival2", type: "image", src: "data/img/horse_510x468_red.png" },
+    {name: "rival3", type: "image", src: "data/img/horse_510x468_purple.png" },
+    {name: "clumsy", type:"image", src: "data/img/horse_510x468.png"},
     {name: "pipe", type:"image", src: "data/img/pipe.png"},
     {name: "ground", type:"image", src: "data/img/Game-fence.png"},
     {name: "gameover", type:"image", src: "data/img/gameover.png"},
