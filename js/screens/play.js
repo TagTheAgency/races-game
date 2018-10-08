@@ -25,16 +25,20 @@ game.PlayScreen = me.ScreenObject.extend({
         this.bg = new BackgroundLayer('bg', 1);
         me.game.world.addChild(this.bg);
 
-        this.ground1 = me.pool.pull('ground', 0, me.game.viewport.height - 82);
-        this.ground2 = me.pool.pull('ground', me.game.viewport.width,
-            me.game.viewport.height - 82);
-        me.game.world.addChild(this.ground1, 11);
-        me.game.world.addChild(this.ground2, 11);
+        this.bottomFence1 = me.pool.pull('fence', 0, me.game.viewport.height - 100, 4);
+        this.bottomFence2 = me.pool.pull('fence', me.game.viewport.width, me.game.viewport.height - 100, 4);
+        me.game.world.addChild(this.bottomFence1, 11);
+        me.game.world.addChild(this.bottomFence2, 11);
+
+        this.topFence1 = me.pool.pull('fence', 0, me.game.viewport.height / 3 - 60, 1);
+        this.topFence2 = me.pool.pull('fence', me.game.viewport.width, me.game.viewport.height / 3 - 60, 1);
+        me.game.world.addChild(this.topFence1, 3);
+        me.game.world.addChild(this.topFence2, 3);
 
         this.HUD = new game.HUD.Container();
         me.game.world.addChild(this.HUD, 11);
 
-        this.bird = me.pool.pull("clumsy", 60, me.game.viewport.height/2 - 100);
+        this.bird = me.pool.pull("player", 60, me.game.viewport.height/2 );
         me.game.world.addChild(this.bird, 10);
 
         //inputs
@@ -66,8 +70,8 @@ game.PlayScreen = me.ScreenObject.extend({
         me.game.world.removeChild(this.bg);
         this.HUD = null;
         this.bird = null;
-        this.ground1 = null;
-        this.ground2 = null;
+        this.bottomFence1 = null;
+        this.bottomFence2 = null;
         this.bg = null;
         me.input.unbindKey(me.input.KEY.SPACE);
         me.input.unbindPointer(me.input.pointer.LEFT);

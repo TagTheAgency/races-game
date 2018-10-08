@@ -53,12 +53,12 @@ game.GameOverScreen = me.ScreenObject.extend({
 
         me.game.world.addChild(new BackgroundLayer('bg', 1));
 
-        // ground
-        this.ground1 = me.pool.pull('ground', 0, me.game.viewport.height - 82);
-        this.ground2 = me.pool.pull('ground', me.game.viewport.width,
-            me.video.renderer.getHeight() - 82);
-        me.game.world.addChild(this.ground1, 11);
-        me.game.world.addChild(this.ground2, 11);
+        // fence
+        this.fence1 = me.pool.pull('fence', 0, me.game.viewport.height - 100, 4);
+        this.fence2 = me.pool.pull('fence', me.game.viewport.width,
+            me.video.renderer.getHeight() - 100, 4);
+        me.game.world.addChild(this.fence1, 11);
+        me.game.world.addChild(this.fence2, 11);
 
         var self = this;
 
@@ -210,8 +210,8 @@ game.GameOverScreen = me.ScreenObject.extend({
         //me.input.unbindKey(me.input.KEY.ENTER);
         me.input.unbindKey(me.input.KEY.SPACE);
         //me.input.unbindPointer(me.input.pointer.LEFT);
-        this.ground1 = null;
-        this.ground2 = null;
+        this.fence1 = null;
+        this.fence2 = null;
         this.font = null;
         this.tweet = null;
         this.restart = null;

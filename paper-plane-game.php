@@ -91,7 +91,7 @@ function insert_velocity_game() {
 	  game.resources = [
     {name: "bg", type:"image", src: "$baseUrl/data/img/office_bg_2.png"},
     {name: "player", type: "image", src: "$baseUrl/data/img/plane_static.png" },
-    {name: "clumsy", type:"image", src: "$baseUrl/data/img/plane_static.png"},
+    {name: "player", type:"image", src: "$baseUrl/data/img/plane_static.png"},
     {name: "pipe", type:"image", src: "$baseUrl/data/img/pipe.png"},
     {name: "ground", type:"image", src: "$baseUrl/data/img/ground.png"},
     {name: "gameover", type:"image", src: "$baseUrl/data/img/gameover.png"},

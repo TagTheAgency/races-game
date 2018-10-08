@@ -20,7 +20,7 @@ var game = {
 
 
       // Initialize the video.
-      if (!me.video.init(600, 900, {wrapper : "screen", scale: "1", zoomX: 600, zoomY: 900})) {
+      if (!me.video.init(600, 900, {wrapper : "screen", scale: "auto", zoomX: 600, zoomY: 900})) {
         alert("Your browser does not support HTML5 canvas.");
         return;
       }
@@ -65,14 +65,14 @@ var game = {
         // add our player entity in the entity pool
         //me.pool.register("mainPlayer", game.PlayerEntity);
 
-        me.pool.register("clumsy", game.BirdEntity);
+        me.pool.register("player", game.BirdEntity);
         me.pool.register("cabinet", game.CabinetEntity, true);
         me.pool.register("desk", game.DeskEntity, true);
         me.pool.register("rival_horse_1", game.RivalEntityPink, true);
         me.pool.register("rival_horse_2", game.RivalEntityRed, true);
         me.pool.register("rival_horse_3", game.RivalEntityPurple, true);
         //me.pool.register("hit", game.HitEntity, true);
-        me.pool.register("ground", game.Ground, true);
+        me.pool.register("fence", game.Fence, true);
         me.pool.register("restart_button", game.RestartButton, true);
 
         me.input.bindKey(me.input.KEY.SPACE, "fly", true);

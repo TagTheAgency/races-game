@@ -1,7 +1,7 @@
 game.BirdEntity = me.Entity.extend({
     init: function(x, y) {
         var settings = {};
-        settings.image = 'clumsy';
+        settings.image = 'player';
         settings.width = 170;
         settings.height = 117;
 
@@ -88,7 +88,7 @@ game.BirdEntity = me.Entity.extend({
 
     onCollision: function(response) {
         var obj = response.b;
-        if (obj.type === 'cabinet' || obj.type === 'desk' || obj.type === 'light' || obj.type === 'ground') {
+        if (obj.type === 'horse' || obj.type === 'fence') {
             me.device.vibrate(500);
             this.collided = true;
         }
@@ -432,17 +432,23 @@ game.HitEntity = me.Entity.extend({
 
 }); */
 
-game.Ground = me.Entity.extend({
-    init: function(x, y) {
+game.Fence = me.Entity.extend({
+    init: function(x, y, vel) {
         var settings = {};
-        settings.image = me.loader.getImage('ground');
+        settings.image = me.loader.getImage('fence');
         settings.width = 707;
         settings.height= 126;
         this._super(me.Entity, 'init', [x, y, settings]);
         this.alwaysUpdate = true;
         this.body.gravity = 0;
-        this.body.vel.set(-4, 0);
-        this.type = 'ground';
+        this.body.vel.set(-vel, 0);
+        this.type = 'fence';
+
+        this.body.removeShapeAt(0);
+        //extend a vector!
+        this.body.addShape(new me.Rect(0,60,707,30));
+
+
     },
 
     update: function(dt) {

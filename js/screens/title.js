@@ -2,8 +2,8 @@ game.TitleScreen = me.ScreenObject.extend({
     init: function(){
         this._super(me.ScreenObject, 'init');
         this.font = null;
-        this.ground1 = null;
-        this.ground2 = null;
+        this.fence1 = null;
+        this.fence2 = null;
         this.logo = null;
     },
 
@@ -28,7 +28,7 @@ game.TitleScreen = me.ScreenObject.extend({
             me.game.viewport.width/2 - 255,
             me.game.viewport.height/2 - 20,
             {
-              image: 'clumsy',
+              image: 'player',
               framewidth: 510
             }
         );
@@ -39,11 +39,11 @@ game.TitleScreen = me.ScreenObject.extend({
             .to({y: me.game.viewport.height/2 - 100}, 1000)
             .easing(me.Tween.Easing.Exponential.InOut).start();
 
-        this.ground1 = me.pool.pull("ground", 0, me.video.renderer.getHeight() - 82);
-        this.ground2 = me.pool.pull("ground", me.video.renderer.getWidth(),
-                                    me.video.renderer.getHeight() - 82);
-        me.game.world.addChild(this.ground1, 11);
-        me.game.world.addChild(this.ground2, 11);
+        this.fence1 = me.pool.pull("fence", 0, me.video.renderer.getHeight() - 100, 4);
+        this.fence2 = me.pool.pull("fence", me.video.renderer.getWidth(),
+                                    me.video.renderer.getHeight() - 100, 4);
+        me.game.world.addChild(this.fence1, 11);
+        me.game.world.addChild(this.fence2, 11);
 
         me.game.world.addChild(new (me.Renderable.extend ({
             // constructor
@@ -69,8 +69,8 @@ game.TitleScreen = me.ScreenObject.extend({
         me.input.unbindKey(me.input.KEY.ENTER);
         me.input.unbindKey(me.input.KEY.SPACE);
         me.input.unbindPointer(me.input.pointer.LEFT);
-        this.ground1 = null;
-        this.ground2 = null;
+        this.fence1 = null;
+        this.fence2 = null;
         //me.game.world.removeChild(this.logo);
         this.logo = null;
     }
