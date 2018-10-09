@@ -11,6 +11,7 @@ game.resources = [
     {name: "grass2", type:"image", src: "data/img/tuft-2.png"},
     {name: "crash", type:"image", src: "data/img/crash-comic-text-bubble.jpg"},
     {name: "gameover", type:"image", src: "data/img/gameover.png"},
+    {name: "splash", type:"image", src: "data/img/splash-screen.png"},
     {name: "gameoverbg", type:"image", src: "data/img/entryScreen.png"},
     {name: "hit", type:"image", src: "data/img/hit.png"},
     {name: "getready", type:"image", src: "data/img/getready.png"},

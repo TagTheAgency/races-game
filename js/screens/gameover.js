@@ -88,7 +88,7 @@ game.GameOverScreen = me.ScreenObject.extend({
               var x = me.game.viewport.width/2 + stepsText.width/2;
               x = this.getScaledMeasurement(x);
               x = x / ratio;
-              
+
               this.scoreFont.draw(
                   renderer,
                   game.data.steps.toFixed(2),
@@ -119,15 +119,23 @@ game.GameOverScreen = me.ScreenObject.extend({
             init : function (x, y, type, length) {
 
               var ratio = me.device.getPixelRatio();
-              if (ratio > 1) {
+              var scaledWidth = me.video.renderer.gameWidthZoom;
+
+              console.log("Ratio", ratio);
+              ratio = ratio * 600 / scaledWidth;
+              console.log("Stretch Ratio", ratio);
+
+              if (ratio != 1) {
+                console.log("X: ", x);
                 x = (x / ratio);
+                console.log("X: ", x);
                 y = (y / ratio);
               }
 
-              this.$name = $('<input id="enterCompName" type="text" name="name"/>').css({
+              /*this.$name = $('<input id="enterCompName" type="text" name="name"/>').css({
                 "left" : x,
                 "top" : y - 100
-              });
+              });*/
 
                 this.$input = $('<input type="image" id="enterCompNative" src="data/img/enter_comp_button.png">').css({
                     "left" : x,
@@ -136,8 +144,8 @@ game.GameOverScreen = me.ScreenObject.extend({
 
 
 
-                if (ratio > 1) {
-                  this.$input.css({"width": 220 / ratio, "height": 34 / ratio});
+                if (ratio != 1) {
+                  this.$input.css({"width": 250 / ratio, "height": 40 / ratio});
                   //$('.fb-login-button.fb_iframe_widget').css({"left": 529 / ratio, "top": 360 / ratio});
                 }
                 this.$input.click(self.submitResults.bind(self));
@@ -156,29 +164,30 @@ game.GameOverScreen = me.ScreenObject.extend({
                 }
 
                 $(me.video.getWrapper()).append(this.$input);
-                $(me.video.getWrapper()).append(this.$name);
+                //$(me.video.getWrapper()).append(this.$name);
 
             },
 
             destroy : function () {
                 this.$input.remove();
-                this.$name.remove();
+                //this.$name.remove();
                 //$('.fb-login-button.fb_iframe_widget').css({display:'none'});
 
             }
         });
 
 
-        this.enterCompNative = new EnterCompNative(200,563);
+        this.enterCompNative = new EnterCompNative(180,544);
         me.game.world.addChild(this.enterCompNative, 14);
 
     },
 
     submitResults: function() {
       var self = this;
-      FB.getLoginStatus(function(response) {
-          self.statusChangeCallback(response);
-      });
+
+      $('#entryScreen').css({'display':'block'});
+
+
       return false;
     },
 

@@ -8,12 +8,12 @@ game.TitleScreen = me.ScreenObject.extend({
     },
 
     onResetEvent: function() {
-      
+
         var self = this;
         //me.audio.stop("theme");
         game.data.newHiScore = false;
 
-        me.game.world.addChild(new BackgroundLayer('bgstatic', 1));
+        me.game.world.addChild(new BackgroundLayer('splash', 1));
         me.input.bindKey(me.input.KEY.ENTER, "enter", true);
         me.input.bindKey(me.input.KEY.SPACE, "enter", true);
         me.input.bindPointer(me.input.pointer.LEFT, me.input.KEY.ENTER);
@@ -25,7 +25,7 @@ game.TitleScreen = me.ScreenObject.extend({
         });
 
         //logo
-        this.logo = new me.Sprite(
+/*        this.logo = new me.Sprite(
             me.game.viewport.width/2 - 255,
             me.game.viewport.height/2 - 20,
             {
@@ -61,7 +61,7 @@ game.TitleScreen = me.ScreenObject.extend({
                 var ypos = me.game.viewport.height/2 + 50;
                 this.font.draw(renderer, this.text, xpos, ypos);
             }
-        })), 12);
+        })), 12); */
     },
 
     onDestroyEvent: function() {

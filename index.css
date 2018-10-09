@@ -64,19 +64,24 @@ input[type=text] {
 #enterCompNative {
   position: absolute;
 }
-.fb-login-button {
-  position: absolute;
-  left: 529px;
-  top: 360px;
+
+#entryScreen {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  display: none;
+  z-index: 1;
+  background-image: url(data/img/splash-background.png);
+  background-size: contain;
 }
-.fb-login-button.fb_iframe_widget {
-  display:none;
+
+#closeEntry {
   position: absolute;
-  z-index: 300;
+  bottom: 50px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  width: 200px;
 }
-/*
-#screen input {
-    position: absolute;
-    z-index: 2;
-    font-size: 22px;
-}*/
