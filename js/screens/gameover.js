@@ -6,6 +6,9 @@ game.GameOverScreen = me.ScreenObject.extend({
 
     onResetEvent: function() {
         //save section
+
+        //me.input.unbindKey(me.input.KEY.SPACE);
+
         this.savedData = {
             score: game.data.score,
             steps: game.data.steps
@@ -23,7 +26,7 @@ game.GameOverScreen = me.ScreenObject.extend({
             game.data.newHiScore = true;
         }
         //me.input.bindKey(me.input.KEY.ENTER, "enter", true);
-        me.input.bindKey(me.input.KEY.SPACE, "enter", false)
+        //me.input.bindKey(me.input.KEY.SPACE, "enter", false)
         //me.input.bindPointer(me.input.pointer.LEFT, me.input.KEY.ENTER);
 
         this.handler = me.event.subscribe(me.event.KEYDOWN,
@@ -44,11 +47,7 @@ game.GameOverScreen = me.ScreenObject.extend({
             me.game.viewport.height/2,
             {image: 'gameoverbg'}
         );
-        var gameOverBG = new me.Sprite(
-            me.game.viewport.width/2,
-            me.game.viewport.height/2,
-            {image: 'gameoverbg'}
-        );
+
         me.game.world.addChild(gameOverBG, 10);
 
         me.game.world.addChild(new BackgroundLayer('bgstatic', 1));
@@ -74,39 +73,44 @@ game.GameOverScreen = me.ScreenObject.extend({
                 //this.yourScore = 'Y O U R  S C O R E';
             },
 
+            getScaledMeasurement: function(measurement) {
+              var scaledWidth = me.video.renderer.gameWidthZoom;
+              return measurement / 600 * scaledWidth;
+            },
 
             draw: function (renderer) {
-                var stepsText = this.scoreFont.measureText(renderer, game.data.steps.toFixed(2));
-                //var topStepsText = this.font.measureText(renderer, this.topSteps);
-                //var yourScoreText = this.yourScoreFont.measureText(renderer, this.yourScore);
+              var scaledWidth = me.video.renderer.gameWidthZoom;
 
-                //steps
-//                this.yourScoreFont.draw(
-//                    renderer,
-//                    this.yourScore,
-//                    me.game.viewport.width/2 + yourScoreText.width/2,
-//                    me.game.viewport.height/2
-//                );
-                this.scoreFont.draw(
-                    renderer,
-                    game.data.steps.toFixed(2),
-                    me.game.viewport.width/2 + stepsText.width/2 + 40,
-                    me.game.viewport.height/2 + 50
-                );
+      	      var stepsText = this.scoreFont.measureText(renderer, game.data.steps.toFixed(2));
 
-                this.highScoreFont.draw(
+              var ratio = me.device.getPixelRatio();
+
+              var x = me.game.viewport.width/2 + stepsText.width/2;
+              x = this.getScaledMeasurement(x);
+              x = x / ratio;
+              
+              this.scoreFont.draw(
+                  renderer,
+                  game.data.steps.toFixed(2),
+                  420,
+                  550
+              );
+
+              this.highScoreFont.draw(
                   renderer,
                   "High score: " +me.save.topSteps.toFixed(2),
-                  me.game.viewport.width/2 + stepsText.width,
-                  me.game.viewport.height/2 + 120
-                )
+                  400,
+                  580
+/*                  me.game.viewport.width/2 + stepsText.width,
+                  me.game.viewport.height/2 + 50*/
+              )
 
 
             }
         }));
         me.game.world.addChild(this.dialog, 12);
 
-        this.restart = new me.pool.pull("restart_button",300, 400);
+        this.restart = new me.pool.pull("restart_button",300, 650);
         me.game.world.addChild(this.restart, 14);
 
 
@@ -120,10 +124,17 @@ game.GameOverScreen = me.ScreenObject.extend({
                 y = (y / ratio);
               }
 
-                this.$input = $('<input type="image" id="enterCompNative" src="/wp-content/plugins/velocity-game/data/img/enter_comp_button.png">').css({
+              this.$name = $('<input id="enterCompName" type="text" name="name"/>').css({
+                "left" : x,
+                "top" : y - 100
+              });
+
+                this.$input = $('<input type="image" id="enterCompNative" src="data/img/enter_comp_button.png">').css({
                     "left" : x,
                     "top" : y
                 });
+
+
 
                 if (ratio > 1) {
                   this.$input.css({"width": 220 / ratio, "height": 34 / ratio});
@@ -145,18 +156,20 @@ game.GameOverScreen = me.ScreenObject.extend({
                 }
 
                 $(me.video.getWrapper()).append(this.$input);
+                $(me.video.getWrapper()).append(this.$name);
 
             },
 
             destroy : function () {
                 this.$input.remove();
+                this.$name.remove();
                 //$('.fb-login-button.fb_iframe_widget').css({display:'none'});
 
             }
         });
 
 
-        this.enterCompNative = new EnterCompNative(514,413);
+        this.enterCompNative = new EnterCompNative(200,563);
         me.game.world.addChild(this.enterCompNative, 14);
 
     },

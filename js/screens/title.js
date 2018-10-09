@@ -8,6 +8,7 @@ game.TitleScreen = me.ScreenObject.extend({
     },
 
     onResetEvent: function() {
+      
         var self = this;
         //me.audio.stop("theme");
         game.data.newHiScore = false;

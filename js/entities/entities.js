@@ -74,6 +74,7 @@ game.BirdEntity = me.Entity.extend({
         //this.renderable.scale(1.1);
         me.collision.check(this);
         game.data.steps += .01;
+        game.data.playerY = this.pos.y;
 
         var hitSky = 300; // bird height + 20px
         if (this.pos.y <= hitSky || this.collided) {
@@ -349,15 +350,23 @@ game.PipeGenerator = me.Renderable.extend({
     },
 
     update: function(dt) {
+      if (Math.random() > 0.95) {
+        var posY = (game.random() * 500) + 350;
+        var grass = new me.pool.pull('grass', this.posX, posY);
+        me.game.world.addChild(grass, 4);
+      }
         if (this.generate++ % this.pipeFrequency == 0) {
             var posY = (game.random() * 500) + 350;//Number.prototype.random(200, 400);
-//                    me.video.renderer.getHeight() - 100,
-//                    800
-//            );
-            console.log(posY);
+
+            console.log("Generate at ", this.generate);
 
 
             var rand = game.random();//Math.random();
+
+            if (this.generate / 10000 > rand) {
+              posY = game.data.playerY;
+              console.log("Setting rival to be at same height ", posY);
+            }
 
             if (rand < 0.333) {
               var obstacle = new me.pool.pull('rival_horse_1', this.posX, posY);
@@ -465,6 +474,45 @@ game.Fence = me.Entity.extend({
         }
         me.Rect.prototype.updateBounds.apply(this);
         return this._super(me.Entity, 'update', [dt]);
+    },
+
+});
+
+game.Grass = me.Entity.extend({
+    init: function(x, y) {
+        var settings = {};
+
+        if (Math.random() > .5) {
+          settings.image = me.loader.getImage('grass2');
+          settings.width = 50;
+          settings.height = 25;
+        } else {
+          settings.image = me.loader.getImage('grass1');
+          settings.width = 50;
+          settings.height = 36;
+        }
+        this._super(me.Entity, 'init', [x, y, settings]);
+        this.alwaysUpdate = true;
+        this.body.gravity = 0;
+        this.body.vel.set(-8, 0);
+        this.type = 'grass';
+
+        this.body.removeShapeAt(0);
+
+    },
+
+    update: function(dt) {
+        // mechanics
+        if (!game.data.start) {
+            return this._super(me.Entity, 'update', [dt]);
+        }
+        this.pos.add(this.body.vel);
+        if (this.pos.x < -100/*this.image.width*/) {
+            me.game.world.removeChild(this);
+        }
+        me.Rect.prototype.updateBounds.apply(this);
+        this._super(me.Entity, 'update', [dt]);
+        return true;
     },
 
 });
