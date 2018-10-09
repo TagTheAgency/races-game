@@ -73,6 +73,7 @@ var game = {
         me.pool.register("rival_horse_3", game.RivalEntityPurple, true);
         //me.pool.register("hit", game.HitEntity, true);
         me.pool.register("fence", game.Fence, true);
+        me.pool.register("sky", game.Sky, true);
         me.pool.register("restart_button", game.RestartButton, true);
 
         me.input.bindKey(me.input.KEY.SPACE, "fly", true);

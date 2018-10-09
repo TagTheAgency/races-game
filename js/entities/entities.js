@@ -11,8 +11,9 @@ game.BirdEntity = me.Entity.extend({
         this.body.gravity = 0.2;
         this.maxAngleRotation = Number.prototype.degToRad(-30);
         this.maxAngleRotationDown = Number.prototype.degToRad(35);
-        this.renderable.addAnimation("flying", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+        this.renderable.addAnimation("flying", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
         this.renderable.addAnimation("idle", [0]);
+        this.renderable.addAnimation("crash", [12]);
         this.renderable.setCurrentAnimation("flying");
         //this.renderable.anchorPoint = new me.Vector2d(0.1, 0.5);
         this.body.removeShapeAt(0);
@@ -97,20 +98,25 @@ game.BirdEntity = me.Entity.extend({
     endAnimation: function() {
         me.game.viewport.fadeOut("#fff", 100);
         var currentPos = this.pos.y;
-        this.endTween = new me.Tween(this.pos);
-        this.endTween.easing(me.Tween.Easing.Exponential.InOut);
+        this.renderable.setCurrentAnimation("crash");
+        //this.endTween = new me.Tween(this.pos);
+        //this.endTween.easing(me.Tween.Easing.Exponential.InOut);
 
-        this.flyTween.stop();
-        this.renderable.currentTransform.identity();
-        this.renderable.currentTransform.rotate(Number.prototype.degToRad(90));
-        var finalPos = me.game.viewport.height - this.renderable.width/2 - 82;
-        this.endTween
-            .to({y: currentPos}, 1000)
-            .to({y: finalPos}, 1000)
-            .onComplete(function() {
-                me.state.change(me.state.GAME_OVER);
-            });
-        this.endTween.start();
+        //this.flyTween.stop();
+        //this.renderable.currentTransform.identity();
+        //this.renderable.currentTransform.rotate(Number.prototype.degToRad(90));
+        //var finalPos = me.game.viewport.height - this.renderable.width/2 - 82;
+        //this.endTween
+        //    .to({y: currentPos}, 1000)
+        //    .to({y: finalPos}, 1000)
+        //    .onComplete(function() {
+        //        me.state.change(me.state.GAME_OVER);
+        //    });
+        //this.endTween.start();
+
+        setTimeout(function() {
+          me.state.change(me.state.GAME_OVER);
+        }, 1000);
     }
 
 });
@@ -449,6 +455,32 @@ game.Fence = me.Entity.extend({
         this.body.addShape(new me.Rect(0,60,707,30));
 
 
+    },
+
+    update: function(dt) {
+        // mechanics
+        this.pos.add(this.body.vel);
+        if (this.pos.x < -this.renderable.width) {
+            this.pos.x = me.video.renderer.getWidth() - 100;
+        }
+        me.Rect.prototype.updateBounds.apply(this);
+        return this._super(me.Entity, 'update', [dt]);
+    },
+
+});
+
+game.Sky = me.Entity.extend({
+    init: function(x, y) {
+        var settings = {};
+        settings.image = me.loader.getImage('sky');
+        settings.width = 956;
+        settings.height= 350;
+        this._super(me.Entity, 'init', [x, y, settings]);
+        this.alwaysUpdate = true;
+        this.body.gravity = 0;
+        this.body.vel.set(-.2, 0);
+        this.type = 'sky';
+        this.body.removeShapeAt(0);
     },
 
     update: function(dt) {

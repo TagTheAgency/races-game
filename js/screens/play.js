@@ -22,8 +22,15 @@ game.PlayScreen = me.ScreenObject.extend({
         game.data.pressed = [];
         game.data.initialSeed = game.data.seed;
 
+
+        this.sky = me.pool.pull('sky', 0, 0);
+        me.game.world.addChild(this.sky, 0);
+        this.sky1 = me.pool.pull('sky', me.game.viewport.width, 0);
+        me.game.world.addChild(this.sky1, 0);
+
         this.bg = new BackgroundLayer('bg', 1);
         me.game.world.addChild(this.bg);
+
 
         this.bottomFence1 = me.pool.pull('fence', 0, me.game.viewport.height - 100, 4);
         this.bottomFence2 = me.pool.pull('fence', me.game.viewport.width, me.game.viewport.height - 100, 4);
@@ -72,6 +79,8 @@ game.PlayScreen = me.ScreenObject.extend({
         this.bird = null;
         this.bottomFence1 = null;
         this.bottomFence2 = null;
+        this.sky = null;
+        this.sky1 = null;
         this.bg = null;
         me.input.unbindKey(me.input.KEY.SPACE);
         me.input.unbindPointer(me.input.pointer.LEFT);

@@ -51,7 +51,7 @@ game.GameOverScreen = me.ScreenObject.extend({
         );
         me.game.world.addChild(gameOverBG, 10);
 
-        me.game.world.addChild(new BackgroundLayer('bg', 1));
+        me.game.world.addChild(new BackgroundLayer('bgstatic', 1));
 
         // fence
         this.fence1 = me.pool.pull('fence', 0, me.game.viewport.height - 100, 4);
