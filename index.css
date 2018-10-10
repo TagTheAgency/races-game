@@ -54,12 +54,12 @@ body {
             /*overflow:auto;*/
 }
 input[type=text] {
-  position: absolute;
+  position: relative;
   height: 30px;
   font-size: 14pt;
   padding: 1px 18px;
   border-radius: 30px;
-  width: 170px;
+  width: 200px;
 }
 #enterCompNative {
   position: absolute;
@@ -84,4 +84,21 @@ input[type=text] {
   left: 0;
   right: 0;
   width: 200px;
+}
+
+#highScoresContainer {
+  max-width: 90%;
+  width: 400px;
+  margin: auto;
+}
+.scores-list {
+  list-style-type: none;
+}
+.scores-list li {
+  width: 400px;
+  max-width: 90%
+}
+li .name, li.score {
+  width: 100px;
+  display: inline-block;
 }

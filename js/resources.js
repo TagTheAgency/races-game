@@ -20,8 +20,8 @@ game.resources = [
     {name: "cabinet", type:"image", src: "data/img/office_assets_kiwi_cabinet.png"},
     {name: "desk_sml", type:"image", src: "data/img/desk-sml-2.png"},
     {name: "desk_lrg", type:"image", src: "data/img/desk-lrg-2.png"},
-    {name: "try_again", type: "image", src: "data/img/try_again_button.png"},
-    {name: "enter_comp_button", type: "image", src: "data/img/enter_comp_button.png"},
+    {name: "try_again", type: "image", src: "data/img/btn-replay.png"},
+    {name: "enter_comp_button", type: "image", src: "data/img/btn-enter-details.png"},
     {name: "best_score_background", type: "image", src: "data/img/best_score_button_container.png"},
     {name: "shapesdef", type:"json", src: "data/json/kiwi_trace.json"}
 ];

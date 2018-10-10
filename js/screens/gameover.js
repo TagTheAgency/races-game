@@ -25,9 +25,9 @@ game.GameOverScreen = me.ScreenObject.extend({
             me.save.topSeed = game.data.initialSeed;
             game.data.newHiScore = true;
         }
-        //me.input.bindKey(me.input.KEY.ENTER, "enter", true);
-        //me.input.bindKey(me.input.KEY.SPACE, "enter", false)
-        //me.input.bindPointer(me.input.pointer.LEFT, me.input.KEY.ENTER);
+        me.input.bindKey(me.input.KEY.ENTER, "enter", true);
+        me.input.bindKey(me.input.KEY.SPACE, "enter", false)
+        me.input.bindPointer(me.input.pointer.LEFT, me.input.KEY.ENTER);
 
         this.handler = me.event.subscribe(me.event.KEYDOWN,
             function (action, keyCode, edge) {
@@ -185,10 +185,33 @@ game.GameOverScreen = me.ScreenObject.extend({
     submitResults: function() {
       var self = this;
 
+      me.input.unbindKey(me.input.KEY.ENTER);
+      me.input.unbindKey(me.input.KEY.SPACE)
+      me.input.unbindPointer(me.input.pointer.LEFT);
       $('#entryScreen').css({'display':'block'});
 
+      $.getJSON('scores.json',  function( data ) {
+        $('#highScoresContainer').empty();
+        var items = [];
+        $.each( data.scores, function( idx, datum) {
+          console.log(datum);
+          items.push( '<li><span class="name">' + datum.name + '</span><span class="score">' + datum.score + "</span></li>" );
+        });
+        $( "<ul/>", {
+          "class": "scores-list",
+          html: items.join( "" )
+        }).appendTo( "#highScoresContainer" );
+      });
 
+      $('#closeEntry').click(self.closeEntry.bind(self));
       return false;
+    },
+
+    closeEntry: function() {
+      $('#entryScreen').css({'display':'none'});
+      me.input.bindKey(me.input.KEY.ENTER, "enter", true);
+      me.input.bindKey(me.input.KEY.SPACE, "enter", false)
+      me.input.bindPointer(me.input.pointer.LEFT, me.input.KEY.ENTER);
     },
 
     statusChangeCallback: function(response) {
