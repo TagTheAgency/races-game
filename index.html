@@ -1,8 +1,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Velocity Recruitment 10 Year Anniversary</title>
-        <link rel="shortcut icon" href="//www.velocityrecruitment.co.nz/wp-content/uploads/2017/02/momentum-favicon-16.png" type="image/x-icon">
+        <title>Race for your place :: The Races</title>
         <link rel="stylesheet" type="text/css" media="screen" href="index.css">
         <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1">
         <meta name="apple-mobile-web-app-capable" content="yes">
@@ -62,19 +61,28 @@
 
 
             });
-
+            $(function() {
+                var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+                var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+                $("html").css({"width":w,"height":h});
+                $("body").css({"width":w,"height":h});
+            });
         </script>
 
         <div id="entryScreen">
+          <div id="column">
           <div id="highScoresContainer">
 
           </div>
-          <input type="text" placeholder="Name" name="name"/>
-          <input type="text" placeholder="Email" name="email"/>
-          <input type="text" placeholder="Phone" name="phone"/>
-          <input type="image" id="submit" src="data/img/btn-enter-details.png"/>
-
+          <div id="highScoreEntry">
+            <input type="text" placeholder="Name" name="name"/>
+            <input type="text" placeholder="Email" name="email"/>
+            <input type="text" placeholder="Phone" name="phone"/>
+            <input type="image" id="submit" src="data/img/btn-enter-details.png"/>
+          </div>
           <input type="image" id="closeEntry" src="data/img/btn-return.png"/>
         </div>
+        </div>
+
     </body>
 </html>

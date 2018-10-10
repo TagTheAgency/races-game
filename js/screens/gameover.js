@@ -191,11 +191,28 @@ game.GameOverScreen = me.ScreenObject.extend({
       $('#entryScreen').css({'display':'block'});
 
       $.getJSON('scores.json',  function( data ) {
+        console.log(data);
+        data = data.scores;
+        data.sort(function(a,b){return b.score - a.score;});
+        var max = data[0].score;
+        /*data.reduce(function(prev, current) {
+          console.log("Max returning ",(prev.score > current.score) ? prev.score : current.score);
+            return (prev.score > current.score) ? prev.score : current.score
+        });*/
+
+        console.log("Sorted", data);
+        console.log("Max", max);
+        max = max + 2;
+
         $('#highScoresContainer').empty();
         var items = [];
-        $.each( data.scores, function( idx, datum) {
+        console.log(data)
+
+        $.each( data, function( idx, datum) {
           console.log(datum);
-          items.push( '<li><span class="name">' + datum.name + '</span><span class="score">' + datum.score + "</span></li>" );
+          console.log(datum.score, max, datum.score / max);
+          var percentage = datum.score / max * 100;
+          items.push( '<li class="progress-bar"><span class="progress-bar-fill" style="width:'+percentage+'%"></span><span class="name">' + datum.name + '</span><span class="score">' + datum.score + "</span></li>" );
         });
         $( "<ul/>", {
           "class": "scores-list",
