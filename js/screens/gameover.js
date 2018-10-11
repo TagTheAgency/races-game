@@ -25,9 +25,9 @@ game.GameOverScreen = me.ScreenObject.extend({
             me.save.topSeed = game.data.initialSeed;
             game.data.newHiScore = true;
         }
-        me.input.bindKey(me.input.KEY.ENTER, "enter", true);
+//        me.input.bindKey(me.input.KEY.ENTER, "enter", true);
         me.input.bindKey(me.input.KEY.SPACE, "enter", false)
-        me.input.bindPointer(me.input.pointer.LEFT, me.input.KEY.ENTER);
+//        me.input.bindPointer(me.input.pointer.LEFT, me.input.KEY.ENTER);
 
         this.handler = me.event.subscribe(me.event.KEYDOWN,
             function (action, keyCode, edge) {
@@ -233,9 +233,9 @@ game.GameOverScreen = me.ScreenObject.extend({
     closeEntry: function() {
       $('#entryScreen').css({'display':'none'});
       $('#screen').css({'display':'block'});
-      me.input.bindKey(me.input.KEY.ENTER, "enter", true);
+      //me.input.bindKey(me.input.KEY.ENTER, "enter", true);
       me.input.bindKey(me.input.KEY.SPACE, "enter", false)
-      me.input.bindPointer(me.input.pointer.LEFT, me.input.KEY.ENTER);
+      //me.input.bindPointer(me.input.pointer.LEFT, me.input.KEY.ENTER);
       me.device.enableSwipe(false);
     },
 
