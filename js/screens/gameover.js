@@ -219,7 +219,7 @@ game.GameOverScreen = me.ScreenObject.extend({
           var color = gradients.shift();
           var name = datum.name;
           name = name.split(' ')[0];
-          items.push( '<li class="progress-bar"><span class="progress-bar-fill" style="width:'+percentage+'%;background-color:'+color+'"></span><span class="name">' + datum.name + '</span><span class="score">' + datum.score + "</span></li>" );
+          items.push( '<li class="progress-bar"><span class="progress-bar-fill" style="width:'+percentage+'%;background-color:'+color+'"></span><span class="name">' + name + '</span><span class="score">' + datum.score + "</span></li>" );
         });
         $( "<ul/>", {
           "class": "scores-list",
