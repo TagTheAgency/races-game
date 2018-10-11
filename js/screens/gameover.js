@@ -228,6 +228,7 @@ game.GameOverScreen = me.ScreenObject.extend({
       });
 
       $('.closeEntry').click(self.closeEntry.bind(self));
+      $('#submit').click(self.doSubmitScores.bind(self));
       return false;
     },
 
@@ -240,39 +241,25 @@ game.GameOverScreen = me.ScreenObject.extend({
       me.device.enableSwipe(false);
     },
 
-    statusChangeCallback: function(response) {
-      var self = this;
-      if (response.status === 'connected') {
-        // Logged into your app and Facebook.
-        self.doSubmitScores();
-      } else {
-        // The person is not logged into the app or we are unable to tell.
-        FB.login(function(response){
-          if (response.status === 'connected') {
-              self.doSubmitScores();
-            } else {
-              alert("You need to be logged in to facebook to submit your score!");
-            }
-          }, {scope: 'email'});
-      }
-    },
-
     doSubmitScores: function() {
-      FB.api('/me?fields=id,name,email', function(response) {
-        $.ajax({
-          type: "POST",
-          url: wpAjaxUrl,
-          data: {action: 'submit_game_score', name:response.name, email:response.email, personid: response.id, seed: me.save.topSeed, data:JSON.stringify(me.save.topPressed), score: me.save.topSteps},
+      var self = this;
+      var name = $('#entryName').val();
+      var email = $('#entryEmail').val();
+      var phone = $('#entryPhone').val();
+      $.ajax({
+        type: "POST",
+        url: 'https://tagtheagency.com/races/scores.php',
+        data: {action: 'submit_game_score', name:name, email:email, phone:phone, seed: me.save.topSeed, data:JSON.stringify(me.save.topPressed), score: me.save.topSteps},
           success: function(r) {
             alert('Your high score has been submitted, good luck!');
+            self.closeEntry();
           },
           error: function() {
             alert('Sorry, there was an error submitting your score!');
+            self.closeEntry();
           }
-        });
-
-
       });
+
     },
 
     onDestroyEvent: function() {
