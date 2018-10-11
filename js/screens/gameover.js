@@ -193,11 +193,10 @@ game.GameOverScreen = me.ScreenObject.extend({
       $('#entryScreen').css({'display':'block'});
       $('#screen').css({'display':'none'});
 
-      $.getJSON('scores.json',  function( data ) {
+      $.getJSON('https://tagtheagency.com/races/scores.php',  function( data ) {
         console.log(data);
-        data = data.scores;
-        data.sort(function(a,b){return b.score - a.score;});
-        var max = data[0].score;
+        data.sort(function(a,b){return parseFloat(b.score) - parseFloat(a.score);});
+        var max = parseFloat(data[0].score);
         /*data.reduce(function(prev, current) {
           console.log("Max returning ",(prev.score > current.score) ? prev.score : current.score);
             return (prev.score > current.score) ? prev.score : current.score
@@ -218,6 +217,8 @@ game.GameOverScreen = me.ScreenObject.extend({
         $.each( data, function( idx, datum) {
           var percentage = datum.score / max * 100;
           var color = gradients.shift();
+          var name = datum.name;
+          name = name.split(' ')[0];
           items.push( '<li class="progress-bar"><span class="progress-bar-fill" style="width:'+percentage+'%;background-color:'+color+'"></span><span class="name">' + datum.name + '</span><span class="score">' + datum.score + "</span></li>" );
         });
         $( "<ul/>", {

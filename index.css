@@ -112,7 +112,6 @@ input {
   max-width: 90%
 }
 li .name, li.score {
-  width: 100px;
   display: inline-block;
 }
 .progress-bar {
@@ -169,7 +168,7 @@ span.name {
 span.score {
   position: absolute;
   top: 5px;
-  left: 150px;
+  left: 250px;
   font-size: 13pt;
 }
 #highScoreEntry {
