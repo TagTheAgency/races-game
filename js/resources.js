@@ -9,7 +9,7 @@ game.resources = [
     {name: "sky", type:"image", src: "data/img/sky.png"},
     {name: "grass1", type:"image", src: "data/img/tuft-1.png"},
     {name: "grass2", type:"image", src: "data/img/tuft-2.png"},
-    {name: "crash", type:"image", src: "data/img/crash-comic-text-bubble.jpg"},
+    {name: "crash", type:"image", src: "data/img/Crash.png"},
     {name: "gameover", type:"image", src: "data/img/gameover.png"},
     {name: "splash", type:"image", src: "data/img/splash-screen.png"},
     {name: "gameoverbg", type:"image", src: "data/img/entryScreen.png"},
