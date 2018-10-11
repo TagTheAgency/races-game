@@ -99,8 +99,8 @@ game.GameOverScreen = me.ScreenObject.extend({
               this.highScoreFont.draw(
                   renderer,
                   "High score: " +me.save.topSteps.toFixed(2),
-                  400,
-                  580
+                  420,
+                  600
 /*                  me.game.viewport.width/2 + stepsText.width,
                   me.game.viewport.height/2 + 50*/
               )
@@ -188,7 +188,10 @@ game.GameOverScreen = me.ScreenObject.extend({
       me.input.unbindKey(me.input.KEY.ENTER);
       me.input.unbindKey(me.input.KEY.SPACE)
       me.input.unbindPointer(me.input.pointer.LEFT);
+      me.device.enableSwipe(true);
+
       $('#entryScreen').css({'display':'block'});
+      $('#screen').css({'display':'none'});
 
       $.getJSON('scores.json',  function( data ) {
         console.log(data);
@@ -206,13 +209,16 @@ game.GameOverScreen = me.ScreenObject.extend({
 
         $('#highScoresContainer').empty();
         var items = [];
-        console.log(data)
+
+        var gradients = [
+          '#F1090E','#F22011','#F33714','#F54E17','#F6651A','#F87C1E','#F99321','#FAAA24'
+        ];
+
 
         $.each( data, function( idx, datum) {
-          console.log(datum);
-          console.log(datum.score, max, datum.score / max);
           var percentage = datum.score / max * 100;
-          items.push( '<li class="progress-bar"><span class="progress-bar-fill" style="width:'+percentage+'%"></span><span class="name">' + datum.name + '</span><span class="score">' + datum.score + "</span></li>" );
+          var color = gradients.shift();
+          items.push( '<li class="progress-bar"><span class="progress-bar-fill" style="width:'+percentage+'%;background-color:'+color+'"></span><span class="name">' + datum.name + '</span><span class="score">' + datum.score + "</span></li>" );
         });
         $( "<ul/>", {
           "class": "scores-list",
@@ -220,15 +226,17 @@ game.GameOverScreen = me.ScreenObject.extend({
         }).appendTo( "#highScoresContainer" );
       });
 
-      $('#closeEntry').click(self.closeEntry.bind(self));
+      $('.closeEntry').click(self.closeEntry.bind(self));
       return false;
     },
 
     closeEntry: function() {
       $('#entryScreen').css({'display':'none'});
+      $('#screen').css({'display':'block'});
       me.input.bindKey(me.input.KEY.ENTER, "enter", true);
       me.input.bindKey(me.input.KEY.SPACE, "enter", false)
       me.input.bindPointer(me.input.pointer.LEFT, me.input.KEY.ENTER);
+      me.device.enableSwipe(false);
     },
 
     statusChangeCallback: function(response) {
